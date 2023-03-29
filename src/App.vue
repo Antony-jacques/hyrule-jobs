@@ -1,43 +1,57 @@
 <template>
   <div class="app">
-    <p>{{name}}- {{age}}</p>
-    <button @click="changeName('Zelda')">change the name</button>
-    <button @click="changeAge('99')">change the age</button>
-    <p>{{ nameWithRef }}</p>
-    <p>{{ ageWithRef }}</p>
+    <p v-for="job in jobs" :key="job.id">
+      {{ job.title }}
+    </p>
   </div>
   
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, ref } from 'vue';
+import Job from './types/job'
 
 export default defineComponent({ // defineComponent for typescript component
   name: 'App',
   components: { },
   setup(){
-    const state = reactive({
-      name: 'Link',
-      age: 256 as number | string // as or reactive object
-    })
+    const jobs = ref<Job[]>([
+      {
+        title: 'farm worker',
+        location: 'Lon Lon Ranch',
+        salary: 30000,
+        id: '1'
+      },
+      {
+        title: 'quary man',
+        location: 'Death Mountain',
+        salary: 32000,
+        id: '2'
+      },
+      {
+        title: 'flute player',
+        location: 'The lost Wood',
+        salary: 40000,
+        id: '3'
+      },
+      {
+        title: 'fisherman',
+        location: 'Lake Hylia',
+        salary: 30000,
+        id: '4'
+      },
+      {
+        title: 'prison guard',
+        location: 'Gerudo Valley',
+        salary: 25000,
+        id: '5'
+      },
+    ])
 
-    const nameWithRef = ref('John')
-    const ageWithRef = ref<number | string>(40) // <type> for ref
-
-    ageWithRef.value = '33'
-
-    return {...toRefs(state), nameWithRef, ageWithRef} 
+    return { jobs }
   },
 
-  methods: {
-    changeName(newName: string){
-      this.name = newName
-      return newName
-    },
-    changeAge(newAge: string | number ){
-      this.age = newAge
-    }
-  }
+
 });
 </script>
 

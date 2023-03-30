@@ -22,7 +22,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from "vue";
 import Job from "@/types/Job";
-import JobProperty from "@/types/JobProperty";
+import JobProperty from "../types/JobProperty";
 
 export default defineComponent({
   props: {

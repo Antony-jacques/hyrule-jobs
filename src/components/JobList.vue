@@ -4,7 +4,9 @@
       <li v-for="job in jobs" :key="job.id">
         <h2>{{ job.title }} in {{ job.location }}</h2>
         <div class="salary">
-          {{ job.salary }}
+          <p>
+            {{ job.salary }} rubies
+          </p>
         </div>
         <div class="description">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis
@@ -18,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { defineComponent, PropType, } from 'vue';
 import Job from "@/types/Job";
 
 export default defineComponent({

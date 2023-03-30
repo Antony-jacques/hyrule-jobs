@@ -1,7 +1,8 @@
 <template>
   <div class="job-list">
     <ul>
-      <li v-for="job in jobs" :key="job.id">
+      <p>Ordered by {{sortCriteria}}</p>
+      <li v-for="job in getOrderedJobs" :key="job.id">
         <h2>{{ job.title }} in {{ job.location }}</h2>
         <div class="salary">
           <p>
@@ -20,8 +21,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, } from 'vue';
+import { computed, defineComponent, PropType, } from 'vue';
 import Job from "@/types/Job";
+import JobProperty from "@/types/JobProperty";
 
 export default defineComponent({
   props: {
@@ -29,7 +31,24 @@ export default defineComponent({
       required: true,
       type: Array as PropType<Job[]>, // to type props: import & use PropType
     },
+    sortCriteria: {
+      required: true,
+      type: String as PropType<JobProperty>
+    }
   },
+
+
+  setup(props){
+    const getOrderedJobs = computed(()=>{
+      //sort() edite l'array de base qui est une props. pour empécher cela on crée une copie de props.jobs
+      return [...props.jobs].sort((a:Job, b:Job) => {
+        return a[props.sortCriteria] > b[props.sortCriteria] ? 1 : -1
+      }) 
+    })
+    return {getOrderedJobs}
+  }
+
+
 });
 </script>
 
